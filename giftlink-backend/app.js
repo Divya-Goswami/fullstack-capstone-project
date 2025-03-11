@@ -3,10 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const pinoLogger = require('./logger');
+const searchRoutes = require('./routes/searchRoutes');
 
 const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
 
+app.use('/api/search', searchRoutes);
 
 const app = express();
 app.use("*",cors());
