@@ -4,11 +4,13 @@ const express = require('express');
 const cors = require('cors');
 const pinoLogger = require('./logger');
 const searchRoutes = require('./routes/searchRoutes');
+const giftRoutes = require('./routes/giftRoutes');
 
 const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
 
 app.use('/api/search', searchRoutes);
+app.use('/api/gifts', giftRoutes);
 
 const app = express();
 app.use("*",cors());
