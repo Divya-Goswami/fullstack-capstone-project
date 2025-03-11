@@ -9,8 +9,14 @@ const giftRoutes = require('./routes/giftRoutes');
 const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
 
-app.use('/api/search', searchRoutes);
+const giftRoutes = require('./routes/giftRoutes');
+const authRoutes = require('./routes/authRoutes');
+const searchRoutes = require('./routes/searchRoutes');
+
+// Use Routes
 app.use('/api/gifts', giftRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/search', searchRoutes);
 
 const app = express();
 app.use("*",cors());
