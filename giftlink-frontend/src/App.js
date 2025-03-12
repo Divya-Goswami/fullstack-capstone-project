@@ -1,45 +1,31 @@
-/*jshint esversion: 8 */
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const pinoLogger = require('./logger');
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
+// import Footer from './components/Footer/Footer';
+import LoginPage from './components/LoginPage/LoginPage';
+import RegisterPage from './components/RegisterPage/RegisterPage';
+import MainPage from './components/MainPage/MainPage';
+import Profile from './components/Profile/Profile';
+// import MainPage from './components/MainPage/MainPage';
+// import './App.css';
 
-const connectToDatabase = require('./models/db');
-const {loadData} = require("./util/import-mongo/index");
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage
+        
+        />} />
+        <Route path="/register" element={<RegisterPage
+        
+        />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+      {/* <Footer/> */}
+      </>
+  );
+}
 
-
-const app = express();
-app.use("*",cors());
-const port = 3060;
-
-// Connect to MongoDB; we just do this one time
-connectToDatabase().then(() => {
-    pinoLogger.info('Connected to DB');
-})
-    .catch((e) => console.error('Failed to connect to DB', e));
-
-
-app.use(express.json());
-
-// Route files
-
-const pinoHttp = require('pino-http');
-const logger = require('./logger');
-
-app.use(pinoHttp({ logger }));
-
-
-
-// Global Error Handler
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-});
-
-app.get("/",(req,res)=>{
-    res.send("Inside the server")
-})
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+export default App;
